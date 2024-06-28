@@ -2,16 +2,26 @@ import { Component } from '@angular/core';
 
 import { HeaderComponent } from './header/header.component';
 import { UserInputComponent } from './user-input/user-input.component';
+import { InvestmentResultsComponent } from './investment-results/investment-results.component';
 
 import { type InvestmentInput } from './investement-input.model';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, UserInputComponent],
+  imports: [HeaderComponent, UserInputComponent, InvestmentResultsComponent],
   templateUrl: './app.component.html',
 })
 export class AppComponent {
+  resultsData?: {
+    year: number;
+    interest: number;
+    valueEndOfYear: number;
+    annualInvestment: number;
+    totalInterest: number;
+    totalAmountInvested: number;
+  }[];
+
   onCalculateInvestmentResults(data: InvestmentInput) {
     const { initialInvestment, duration, expectedReturn, annualInvestment } =
       data;
@@ -34,7 +44,6 @@ export class AppComponent {
       });
     }
 
-    // return annualData;
-    console.log(annualData);
+    this.resultsData = annualData;
   }
 }
